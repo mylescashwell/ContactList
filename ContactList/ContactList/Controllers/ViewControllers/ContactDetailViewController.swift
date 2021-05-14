@@ -31,9 +31,11 @@ class ContactDetailViewController: UIViewController {
         guard let nameField = nameTextField.text, !nameField.isEmpty,
               let phoneNumberField = phoneNumberTextField.text,
               let emailField = emailTextField.text else { return }
-        if let _ = contact {
-            let updatedContact = Contact(name: nameField, phoneNumber: phoneNumberField, email: emailField)
-            ContactModelController.shared.updateContact(contact: updatedContact) { (result) in
+        if let contact = contact {
+            contact.name        = nameField
+            contact.phoneNumber = phoneNumberField
+            contact.email       = emailField
+            ContactModelController.shared.updateContact(contact: contact) { (result) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(_):
